@@ -60,17 +60,17 @@ data_vv.power = data_vv.power/vv_power_max;
 
 ```
 
-Now to varify my modification I plot both patterns.
-![pattern plot](plots/pattern1.jpg)
+Now to varify my modification I plot both patterns.  
+
+![pattern plot](plots/pattern1.jpg)  
+
 Note that the main direction for H polarization is $180\degree$ or $\pi$. And the main direction for V polarization is $90\degree$ or $\frac{\pi}{2}$.
 
 ## Estimate 3D pattern
 ### Slice the V pattern
 In the paper authors separated the vertical pattern to two parts, front and back. With the following definition.
-$$\begin{split}
-VF(\theta) = V(\theta), \theta\in[0..\pi]\\
-VR(\theta) = V(\theta+\pi), \theta\in[0..\pi]
-\end{split}$$
+$$VF(\theta) = V(\theta), \theta\in[0..\pi]$$
+$$VR(\theta) = V(\theta+\pi), \theta\in[0..\pi]$$
 
 To achieve this I split the vertical pattern data into two tables. With data from $[0,\pi]$ in `data_vv_front` table and data from $[\pi,2\pi]$ in `data_vv_rear` table. Note that by using the same index for both table the difference between two angle will always be $180\degree$
 ```matlab
@@ -111,7 +111,8 @@ end
 ```
 
 ## Visualization
-The result is then converted to logarithmic scale for visualization. I used three method for plotting. A heat map, 3D plot in both Cartesian coordinate system and spherical coordinate system.
+The result is then converted to logarithmic scale for visualization. I used three method for plotting. A heat map, 3D plot in both Cartesian coordinate system and spherical coordinate system.  
+
 ![plot1](plots/pattern4.jpg)
 ![plot1](plots/pattern2.jpg)
 ![plot1](plots/pattern3.jpg)
