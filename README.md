@@ -67,12 +67,10 @@ Note that the main direction for H polarization is $180\degree$ or $\pi$. And th
 ## Estimate 3D pattern
 ### Slice the V pattern
 In the paper authors separated the vertical pattern to two parts, front and back. With the following definition.
-$$
-\begin{split}
+$$\begin{split}
 VF(\theta) = V(\theta), \theta\in[0..\pi]\\
 VR(\theta) = V(\theta+\pi), \theta\in[0..\pi]
-\end{split}
-$$
+\end{split}$$
 
 To achieve this I split the vertical pattern data into two tables. With data from $[0,\pi]$ in `data_vv_front` table and data from $[\pi,2\pi]$ in `data_vv_rear` table. Note that by using the same index for both table the difference between two angle will always be $180\degree$
 ```matlab
@@ -85,9 +83,7 @@ data_vv_rear = table(data_vv.angle(251:end), data_vv.power(251:end), 'VariableNa
 
 ### Calculation
 The interpolation formula proposed by the authors is the following.
-$$
-C(\theta,\phi)=\left(\frac{H(\phi)\cdot\sin^2\theta}{VF(\frac{\pi}{2})\cdot\cos^2(\frac{\phi}{2})+VR(\frac{\pi}{2})\cdot\sin^2(\frac{\phi}{2})}+\cos^2\theta\right)\cdot\left(VF(\theta)\cdot\cos^2(\frac{\phi}{2})+VR(\theta)\cdot\sin^2(\frac{\phi}{2})\right)
-$$
+$$C(\theta,\phi)=\left(\frac{H(\phi)\cdot\sin^2\theta}{VF(\frac{\pi}{2})\cdot\cos^2(\frac{\phi}{2})+VR(\frac{\pi}{2})\cdot\sin^2(\frac{\phi}{2})}+\cos^2\theta\right)\cdot\left(VF(\theta)\cdot\cos^2(\frac{\phi}{2})+VR(\theta)\cdot\sin^2(\frac{\phi}{2})\right)$$
 This function is implemented in Matlab as `interpolation` function.
 ```matlab
 function result = interpolation(v_index,h_index, data_hh, data_vv_front, data_vv_rear)
@@ -122,9 +118,7 @@ The result is then converted to logarithmic scale for visualization. I used thre
 
 ## Directivity calculation
 For normalized linear power density function $P(\theta,\phi)$ the directivity in the main direction can be calculated by:
-$$
-D = \frac{4\pi}{\int_{\phi=0}^{\phi=2\pi}\int_{\theta=0}^{\theta=\pi}P(\theta,\phi)\sin\theta\,d\theta\,d\phi}
-$$
+$$D = \frac{4\pi}{\int_{\phi=0}^{\phi=2\pi}\int_{\theta=0}^{\theta=\pi}P(\theta,\phi)\sin\theta\,d\theta\,d\phi}$$
 
 ```matlab
 for index = 1:250
@@ -140,9 +134,7 @@ P_total2 = trapz(data_hh.angle,trapz(data_vv_front.angle,result2,2))
 D = (4*pi)/(P_total2)
 ```
 And the result is:
-$$
-D = 75.6563
-$$
+$$D = 75.6563$$
 
 ### Verification 
 To verify my solution, I create a radiation pattern measurement data with the same power among all directions, which represent an isotropic antenna. And calculated directivity $D = 1$ as expected.
